@@ -1,0 +1,14 @@
+-- CreateTable
+CREATE TABLE "Barang" (
+    "id" SERIAL NOT NULL,
+    "namaBarang" TEXT NOT NULL,
+    "jenisBarang" TEXT NOT NULL,
+    "jmlBarang" INTEGER NOT NULL,
+    "tglMasuk" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "tglExpired" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "harga" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Barang_pkey" PRIMARY KEY ("id")
+);

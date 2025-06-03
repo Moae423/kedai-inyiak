@@ -25,3 +25,14 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Barang {
+  id Int @id @default(autoincrement())
+  namaBarang String
+  jenisBarang String
+  jmlBarang Int
+  tglMasuk DateTime @default(now())
+  tglExpired DateTime @default(now())
+  harga Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

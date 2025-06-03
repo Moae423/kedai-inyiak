@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 const prims = new PrismaClient();
 const SECRET = "kontol3123131";
 
+// Register
 export const registerUser = async (req, res) => {
   const { email, password, nama, umur, role } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -24,6 +25,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// login
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await prims.user.findUnique({
