@@ -5,7 +5,7 @@ import {
   getAllDataBarang,
   getSpesificBarang,
   updateDataBarang,
-} from "../controller/auth/kadaicontroller.js";
+} from "../controller/kadaicontroller.js";
 
 const router = express.Router();
 
