@@ -2,7 +2,7 @@ import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import authRoutes from "./routes/auth/auth.js";
-import barangRoutes from "./routes/barang.js";
+import routes from "./routes/routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,7 +15,7 @@ app.use(
   })
 );
 app.use("/api/auth", authRoutes);
-app.use("/api", barangRoutes);
+app.use("/api", routes);
 app.listen(PORT, () => {
   console.log(`Server running di ${PORT}`);
 });

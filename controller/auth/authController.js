@@ -17,6 +17,11 @@ export const registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "Email sudah terdaftar" });
     }
+    if (password.length < 8) {
+      return res.status(400).json({ message: "Password minimal 8 karakter" });
+    } else if (password.length > 20) {
+      return res.status(400).json({ message: "Password maksimal 20 karakter" });
+    }
     // Buat akun baru
     const user = await prims.user.create({
       data: {
@@ -87,5 +92,29 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     console.log(`Login Error: ${error.message}`);
     res.status(500).json({ message: "Server error", success: false });
+  }
+};
+
+export const getCurrentUser = async (req, res) => {
+  try {
+    // req.user sudah diset oleh middleware authenticationToken
+    // Berisi { userId, email, nama, umur, role }
+    res.json({
+      success: true,
+      data: {
+        id: req.user.userId,
+        email: req.user.email,
+        nama: req.user.nama,
+        umur: req.user.umur,
+        role: req.user.role,
+      },
+      message: "Ini adalah user yang sedang login",
+    });
+  } catch (error) {
+    console.error("Get current user error:", error);
+    res.status(500).json({
+      message: "Server error",
+      success: false,
+    });
   }
 };
