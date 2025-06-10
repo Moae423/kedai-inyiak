@@ -48,5 +48,5 @@ npx prisma generate
 npx prisma migrate dev --name init
 ```
 
-7. kalau sudah coba test RESTFull API nya pake insomnia (saya pake insomnia)
+7. kalau sudah coba test RESTFull API nya di API Client bisa pake [bruno Client](https://www.usebruno.com/), [postman](https://www.postman.com/) atau [insomnia](https://insomnia.rest/) (saya pake insomnia)
    ![Preview](./assets/image/preview.png)
