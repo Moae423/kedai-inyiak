@@ -1,14 +1,19 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
+import { validationResult } from "express-validator";
 
 const prims = new PrismaClient();
 
 // Register
 export const registerUser = async (req, res) => {
+  // 1. Validasi input dan error handling dari express validator
   const { email, password, nama, umur, role } = req.body;
-  // Hasing Password
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     // Cek apakah email sudah terdaftar
     const existingUser = await prims.user.findUnique({
@@ -17,11 +22,8 @@ export const registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "Email sudah terdaftar" });
     }
-    if (password.length < 8) {
-      return res.status(400).json({ message: "Password minimal 8 karakter" });
-    } else if (password.length > 20) {
-      return res.status(400).json({ message: "Password maksimal 20 karakter" });
-    }
+    // 3. Hash password (setelah divalidasi dari express validator)
+    const hashedPassword = await bcrypt.hash(password, 10);
     // Buat akun baru
     const user = await prims.user.create({
       data: {
@@ -32,7 +34,7 @@ export const registerUser = async (req, res) => {
         role,
       },
     });
-    res.json({
+    res.status(201).json({
       message: "Akun berhasil dibuat",
       user: {
         id: user.id,
@@ -44,6 +46,7 @@ export const registerUser = async (req, res) => {
     });
   } catch (error) {
     console.error("Register error:", error);
+
     res.status(500).json({
       success: false,
       message: "Server error",

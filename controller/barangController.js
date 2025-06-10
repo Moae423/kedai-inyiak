@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator";
 import { prisma } from "../prisma/client.js";
 
 // DATA BARANG
@@ -26,6 +27,10 @@ export const getSpesificBarang = async (req, res) => {
 };
 // createDataBarang
 export const createDataBarang = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const { namaBarang, jenisBarang, jmlBarang, tglMasuk, tglExpired, harga } =
     req.body;
   try {
@@ -33,15 +38,15 @@ export const createDataBarang = async (req, res) => {
       data: {
         namaBarang,
         jenisBarang,
-        jmlBarang,
+        jmlBarang: parseInt(jmlBarang),
         tglMasuk,
         tglExpired,
-        harga,
+        harga: parseFloat(harga),
       },
     });
     res
-      .status(200)
-      .json(barang, { message: "Data barang berhasil ditambahkan" });
+      .status(201)
+      .json({ message: "Data barang berhasil ditambahkan", data: barang });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

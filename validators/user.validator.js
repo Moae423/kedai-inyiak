@@ -1,0 +1,42 @@
+import { body } from "express-validator";
+
+export const userValidator = [
+  body("email")
+    .isEmail()
+    .withMessage("Email harus valid")
+    .normalizeEmail()
+    .trim()
+    .escape(),
+  body("password")
+    .notEmpty()
+    .withMessage("Password wajib diisi")
+    .isLength({ min: 8 })
+    .withMessage("Password minimal 8 karakter")
+    .isLength({ max: 32 })
+    .withMessage("Password maksimal 32 karakter")
+    .trim()
+    .escape(),
+  body("nama")
+    .notEmpty()
+    .withMessage("nama harus diisi")
+    .isLength({ min: 10 })
+    .withMessage("Nama maksimal 10 karakter")
+    .trim()
+    .escape(),
+  body("role")
+    .notEmpty()
+    .withMessage("Role harus diisi")
+    .isLength({ max: 20 })
+    .withMessage("role  10 karakter")
+    .trim()
+    .escape(),
+  body("umur")
+    .notEmpty()
+    .withMessage("umur harus diisi")
+    .isLength({ min: 2 })
+    .withMessage("Nama maksimal 2 karakter")
+    .isLength({ max: 3 })
+    .withMessage("Umur maksimal 3 karakter")
+    .trim()
+    .escape(),
+];
