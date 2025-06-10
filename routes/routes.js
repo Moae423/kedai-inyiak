@@ -2,14 +2,16 @@ import express from "express";
 import {
   createDataBarang,
   deleteDataBarang,
-  deleteUser,
   getAllDataBarang,
   getSpesificBarang,
+  updateDataBarang,
+} from "../controller/barangController.js";
+import {
+  deleteUser,
   getUser,
   getUsersByRole,
-  updateDataBarang,
   updateuser,
-} from "../controller/kadaicontroller.js";
+} from "../controller/userController.js";
 
 const router = express.Router();
 

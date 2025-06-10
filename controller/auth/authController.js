@@ -108,7 +108,7 @@ export const getCurrentUser = async (req, res) => {
         umur: req.user.umur,
         role: req.user.role,
       },
-      message: "Ini adalah user yang sedang login",
+      message: `Token Ini punya user ini dengan  nama dan id sebagai berikut : userId ${req.user.userId} ,${req.user.nama}`,
     });
   } catch (error) {
     console.error("Get current user error:", error);
