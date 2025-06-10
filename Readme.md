@@ -4,6 +4,12 @@ kedai inyiak adalah mini project yang saya kembangkan untuk membantu client dala
 
 ## Tech Stack
 
+### Frontend
+
+**Coming Soon**
+
+### Backend
+
 Tech stack yang digunakan dalam repo atau development ini adalah
 
 - ![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
@@ -13,8 +19,6 @@ Tech stack yang digunakan dalam repo atau development ini adalah
 ## Installation For Test
 
 **Pastikan sudah menginstall node js dan postgreSQL**
-
-### Back end
 
 1. Clone project ini
 
