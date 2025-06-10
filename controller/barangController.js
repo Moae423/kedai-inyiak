@@ -14,13 +14,21 @@ export const getAllDataBarang = async (req, res) => {
 // getSpesificDataBarang
 export const getSpesificBarang = async (req, res) => {
   const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({ message: "ID barang tidak valid" });
+  }
   try {
     const barang = await prisma.barang.findUnique({
       where: {
         id,
       },
     });
-    res.status(200).json(barang, { message: "Data barang berhasil diambil" });
+    if (!barang) {
+      return res.status(404).json({ message: "Data barang tidak ditemukan" });
+    }
+    res
+      .status(200)
+      .json({ message: "Data barang berhasil diambil", data: barang });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -68,6 +76,10 @@ export const updateDataBarang = async (req, res) => {
   }
 };
 export const deleteDataBarang = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const id = parseInt(req.params.id);
   try {
     const barang = await prisma.barang.delete({

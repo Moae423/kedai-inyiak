@@ -1,6 +1,6 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
-export const barangValidator = [
+export const createBarangValidator = [
   body("namaBarang")
     .notEmpty()
     .withMessage("Nama barang harus diisi")
@@ -67,4 +67,8 @@ export const barangValidator = [
       return true;
     })
     .trim(),
+];
+
+export const deleteBarangValidator = [
+  param("id").isInt({ min: 1 }).withMessage("ID barang harus angka"),
 ];

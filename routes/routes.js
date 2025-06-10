@@ -12,16 +12,19 @@ import {
   getUsersByRole,
   updateuser,
 } from "../controller/userController.js";
-import { barangValidator } from "../validators/barang.validator.js";
+import {
+  createBarangValidator,
+  deleteBarangValidator,
+} from "../validators/barang.validator.js";
 
 const router = express.Router();
 
 // register
 router.get("/barang", getAllDataBarang);
 router.get("/barang/:id", getSpesificBarang);
-router.post("/barang", barangValidator, createDataBarang);
+router.post("/barang", createBarangValidator, createDataBarang);
 router.put("/barang/:id", updateDataBarang);
-router.delete("/barang/:id", deleteDataBarang);
+router.delete("/barang/:id", deleteBarangValidator, deleteDataBarang);
 
 // ROUTE USER
 router.get("/user", getUser);
